@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class MultDB implements DatabaseHelper{
 
-private int counter;
-	
+	private int counter;
 	private ArrayList<Data> db;
 	
 	public MultDB() {
@@ -15,20 +14,18 @@ private int counter;
 
 	@Override
 	public void addData(Problem p) {
-		String prob = p.getProblem();
-		double ans = p.getAnswer();
-		Data add = new Data(counter, prob, ans);
+		Data add = new Data(counter, p);
 		db.add(add);
 		counter++;
 	}
 
-	public Data search(int id) {
+	public Data search(int id) throws Exception{
 		for(Data d: db) {
 			if(id == d.id) {
 				return d;
 			}
 		}
-		return new Data(-1, "wrong", -1);
+		throw new Exception("problem not found");
 	}
 
 	@Override
@@ -41,19 +38,10 @@ private int counter;
 	}
 
 	@Override
-	public String getProblem(int id) throws Exception {
+	public Problem getProblem(int id) throws Exception {
 		Data result = search(id);
 		if(result.id > 0) {
-			return result.problem;
-		}
-		throw new Exception("problem not found");
-	}
-
-	@Override
-	public double getAnswer(int id) throws Exception {
-		Data result = search(id);
-		if(result.id > 0) {
-			return result.answer;
+			return result.p;
 		}
 		throw new Exception("problem not found");
 	}

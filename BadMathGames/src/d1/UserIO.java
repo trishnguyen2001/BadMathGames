@@ -9,6 +9,7 @@ public class UserIO {
 	private double given;
 	private JTextField field;
 	private DatabaseHelper db;
+	private int correct;
 	
 	public UserIO(JTextField field, Problem current, Score s, DatabaseHelper db) {
 		this.current = current;
@@ -18,15 +19,14 @@ public class UserIO {
 		
 		String input = field.getText();
 		given = Double.parseDouble(input);
+		correct = 0;
 	}
 	
-	private boolean check() {
-		double answer = db.getAnswer(current.id);
+	private void check() {
+		double answer = current.answer;
 		if(answer == given) {
-			s.update(); 	//calculates new score based off correct answer
-			return true;
+			correct++;
 		}
-		return false;
 	}
 	
 	

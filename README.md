@@ -1,1 +1,3 @@
 BadMathGames
+Pain
+Fun

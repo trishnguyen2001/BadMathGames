@@ -1,24 +1,34 @@
-import java.util.ArrayList;
+import java.util.Objects;
 
-public class ProblemGenerator {
-    private Problem current;
-    private ArrayList<Integer> alreadyPicked;
-    private ArrayList<Problem> set;
+public class Problem {
+    private String problem;
+    private double answer;
 
-    public ProblemGenerator(ArrayList<Problem> set) {
-        this.set = set;
+    public Problem(String problem, double answer) {
+        this.problem = problem;
+        this.answer = answer;
     }
 
-    public Problem randomize() {
-        int max = set.size();
-        int min = -1;
-        int id = (int) (Math.random() * (max - min) + min);
-        if (alreadyPicked.contains(id)) {
-            while (alreadyPicked.contains(id)) {
-                id = (int) (Math.random() * (max - min) + min);
-            }
-        }
-        alreadyPicked.add(id);
-        return set.get(id);
+    public String getProblem() {
+        return problem;
+    }
+
+    public double getAnswer() {
+        return answer;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Problem problem1 = (Problem) o;
+        return Double.compare(problem1.answer, answer) == 0 &&
+                Objects.equals(problem, problem1.problem);
+    }
+
+    public int hashCode() {
+        int hash = 7;
+        hash = (int) (hash * 32 * answer);
+        hash = hash * problem.hashCode();
+        return hash;
     }
 }

@@ -1,3 +1,5 @@
+package BadMathGames;
+
 import java.util.Timer;
 
 public class Round {

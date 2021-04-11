@@ -1,3 +1,5 @@
+package BadMathGames;
+
 import java.util.Objects;
 
 public class Problem {
@@ -10,10 +12,12 @@ public class Problem {
     }
 
     public String getProblem() {
+        //get problem
         return problem;
     }
 
     public double getAnswer() {
+        //get answer
         return answer;
     }
 
@@ -32,3 +36,4 @@ public class Problem {
         return hash;
     }
 }
+

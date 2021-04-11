@@ -1,3 +1,5 @@
+package BadMathGames;
+
 import java.util.ArrayList;
 
 public class ProblemGenerator {
@@ -10,6 +12,7 @@ public class ProblemGenerator {
     }
 
     public Problem randomize() {
+        //randomly generate id and get problem via id
         int max = set.size();
         int min = -1;
         int id = (int) (Math.random() * (max - min) + min);

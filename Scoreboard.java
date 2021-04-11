@@ -1,3 +1,5 @@
+package d1;
+
 import java.util.ArrayList;
 
 public class Scoreboard {

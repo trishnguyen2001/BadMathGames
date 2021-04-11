@@ -23,7 +23,7 @@ public class UserIO {
 	}
 	
 	private void check() {
-		double answer = current.answer;
+		double answer = current.getAnswer();
 		if(answer == given) {
 			correct++;
 		}

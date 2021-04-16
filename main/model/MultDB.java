@@ -32,7 +32,7 @@ private int counter;
 	@Override
 	public void deleteData(int id) throws Exception{
 		Data result = search(id);
-		if(result.id > 0) {
+		if(result.id >= 0) {
 			db.remove(id);
 		}
 		throw new Exception("problem not found");
@@ -41,10 +41,16 @@ private int counter;
 	@Override
 	public Problem getProblem(int id) throws Exception {
 		Data result = search(id);
-		if(result.id > 0) {
+		if(result.id >= 0) {
 			return result.p;
 		}
 		throw new Exception("problem not found");
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return counter;
 	}
 
 }

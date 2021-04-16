@@ -8,4 +8,12 @@ public class Data {
 		this.p = p;
 		this.id = id;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public Problem getProblem() {
+		return p;
+	}
 }

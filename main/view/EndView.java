@@ -9,7 +9,7 @@ public class EndView extends JFrame {
     JButton exitToHomeMessageButton;
     JTextField nameField;
 
-
+    JLabel scoreLabel;
     JLabel nameLabel;
 
     Score theScore;
@@ -23,7 +23,7 @@ public class EndView extends JFrame {
 
         this.nameField = new JTextField(10);
         this.updateMessageButton = new JButton("Submit Name");
-
+        this.scoreLabel = new JLabel("Your score! " + theScore);
         this.nameLabel = new JLabel("Enter your name! ");
 
         // this.scoreboard = new JLabel(theScore); <- however score is displayed
@@ -47,8 +47,9 @@ public class EndView extends JFrame {
                 // do nothing
             }
         });
-
+       
         this.add(scoreboard);
+        this.add(scoreLabel);
         this.add(nameLabel);
         this.add(nameField);
 

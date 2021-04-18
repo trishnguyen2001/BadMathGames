@@ -48,7 +48,7 @@ public class EndView extends JFrame {
             }
         });
 
-
+        this.add(scoreboard);
         this.add(nameLabel);
         this.add(nameField);
 

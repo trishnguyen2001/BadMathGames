@@ -1,6 +1,6 @@
 package main.model; 
 
-public class Score implements GameModel {
+public class Score  {
     int correct;
     String subject;
 

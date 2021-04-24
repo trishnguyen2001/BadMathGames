@@ -1,8 +1,15 @@
+package main.view;
+
 import javax.swing.*;
+
+import main.controller.Message;
+import main.controller.NewScoreboardEntryMessage;
+import main.model.Score;
+
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
-public class EndView extends JFrame {
+public class EndView extends View {
     BlockingQueue<Message> queue;
 
     JButton updateMessageButton;
@@ -32,17 +39,9 @@ public class EndView extends JFrame {
             String name = nameField.getText();
 
             try {
-                Message msg = new NewScoreboardEntryMessage(name);
+                Message msg = new NewScoreboardEntryMessage(name, theScore);
                 queue.put(msg);
 
-            } catch (InterruptedException exception) {
-                // do nothing
-            }
-        });
-
-        exitToHomeMessageButton.addActionListener(e -> {
-            try {
-                queue.put(new ExitToHomeMessage());
             } catch (InterruptedException exception) {
                 // do nothing
             }

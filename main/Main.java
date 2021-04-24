@@ -3,11 +3,11 @@ package main;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import main.controller.Message;
 import main.model.AlgDB;
 import main.model.MultDB;
 import main.model.Problem;
 import main.view.HomeView;
-import main.view.Message;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,14 +19,13 @@ public class Main {
 	public static void main(String args[]) {
 		//read problems into databases
 		AlgDB adb = new AlgDB();
-		File alg1 = new File("C:\\Users\\Trish Nguyen\\Desktop\\CS151\\PROJECT\\BadMathGames\\BadMathGames\\src\\main\\Alg1.csv");
+		File alg1 = new File("src/main/Alg1.csv");
 		Scanner in;
 		try {
 			in = new Scanner(alg1);
 			in.nextLine(); 		//gets rid of first line
 			while(in.hasNextLine()) {
 				String current = in.nextLine();
-				System.out.println("current = " + current);
 				String[] items = current.split(",");
 				String prob = items[0];
 				String stringAns = items[1];
@@ -42,13 +41,12 @@ public class Main {
 
 
 		MultDB mdb = new MultDB();
-		File mult = new File("C:\\Users\\Trish Nguyen\\Desktop\\CS151\\PROJECT\\BadMathGames\\BadMathGames\\src\\main\\MultTables.csv");
+		File mult = new File("src/main/MultTables.csv");
 		try {
 			in = new Scanner(mult);
 			in.nextLine(); 		//gets rid of first line
 			while(in.hasNextLine()) {
 				String current = in.nextLine();
-				System.out.println("current = " + current);
 				String[] items = current.split(",");
 				String prob = items[0];
 				String stringAns = items[1];

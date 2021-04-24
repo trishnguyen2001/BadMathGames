@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.Objects;
 
-public class Problem {
+public class Problem  {
     private String problem;
     private double answer;
 
@@ -32,5 +32,9 @@ public class Problem {
         hash = (int) (hash * 32 * answer);
         hash = hash * problem.hashCode();
         return hash;
+    }
+    
+    public String toString() {
+    	return problem + ", " + answer;
     }
 }

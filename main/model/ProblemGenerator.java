@@ -2,7 +2,7 @@ package main.model;
 
 import java.util.ArrayList;
 
-public class ProblemGenerator implements GameModel {
+public class ProblemGenerator {
     private ArrayList<Integer> alreadyPicked;
     private ArrayList<Problem> set;
     private DatabaseHelper db;

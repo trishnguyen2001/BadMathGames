@@ -2,28 +2,19 @@ package main.view;
 
 import java.awt.*;
 import javax.swing.*;
+
+import main.controller.Message;
+import main.controller.TopicSelectMessage;
+
 import java.util.concurrent.BlockingQueue;
 
 
-public class HomeView implements View{
+public class HomeView extends View{
 	private JFrame home;
 	private BlockingQueue<Message> q;
 
 	public HomeView(BlockingQueue<Message> q) {
 		this.q = q;
-
-		//START ROUND BTN
-		JButton startBtn = new JButton("START");
-		startBtn.setBounds(150, 100, 100, 60);
-		startBtn.addActionListener(event -> {
-			Message msg = new StartRoundMessage(true);
-			try {
-				q.put(msg);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
 
 		//ALG BTN
 		JButton algBtn = new JButton("Algebra");
@@ -50,6 +41,9 @@ public class HomeView implements View{
 				e.printStackTrace();
 			}
 		});
+		
+		//add DISPLAY SCOREBOARD BTN//////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////
 
 
 		home = new JFrame();
@@ -75,7 +69,6 @@ public class HomeView implements View{
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
 		home.add(multBtn);
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(startBtn);
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
 		
 		home.pack();

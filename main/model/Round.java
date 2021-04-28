@@ -24,6 +24,14 @@ public class Round {
         
     }
     
+    public void incrementCurrent() {
+        current++;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+    
     public ArrayList<Problem> getProblems() {
         return problems;
     }

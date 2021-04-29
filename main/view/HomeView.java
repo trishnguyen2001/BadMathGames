@@ -5,8 +5,11 @@ import javax.swing.*;
 
 import main.controller.Message;
 import main.controller.TopicSelectMessage;
+import main.controller.ViewScoreboardMessage;
+import main.model.Problem;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class HomeView extends View{
@@ -14,6 +17,12 @@ public class HomeView extends View{
 	private BlockingQueue<Message> q;
 
 	public HomeView(BlockingQueue<Message> q) {
+		System.out.println("HOMEVIEW: new homeview created");
+		
+		
+		
+		
+		
 		this.q = q;
 
 		//ALG BTN
@@ -22,7 +31,7 @@ public class HomeView extends View{
 		algBtn.addActionListener(event -> {
 			Message msg = new TopicSelectMessage("alg");
 			try {
-				q.put(msg);
+				this.q.put(msg);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -35,15 +44,24 @@ public class HomeView extends View{
 		multBtn.addActionListener(event -> {
 			Message msg = new TopicSelectMessage("mult");
 			try {
-				q.put(msg);
+				this.q.put(msg);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 		
-		//add DISPLAY SCOREBOARD BTN//////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////
+		//DISPLAY SCOREBOARD BTN
+		JButton scoreboardBtn = new JButton("View Scoreboards");
+		scoreboardBtn.addActionListener(event-> {
+			Message msg = new ViewScoreboardMessage();
+			try {
+				this.q.put(msg);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 
 
 		home = new JFrame();
@@ -61,7 +79,7 @@ public class HomeView extends View{
 		
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
 		home.add(title);
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
+		home.add(scoreboardBtn);
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
 		home.add(directions);
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
@@ -73,8 +91,13 @@ public class HomeView extends View{
 		
 		home.pack();
 		home.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		home.setSize(800, 500);
 		home.setVisible(true);
 
 	}
 
+	public static void main(String args[]) {
+		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
+		HomeView test = new HomeView(q);
+	}
 }

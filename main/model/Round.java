@@ -3,36 +3,27 @@ package main.model;
 import java.util.ArrayList;
 
 public class Round {
-    private String topic;
-    private ArrayList<Problem> problems;
-    private DatabaseHelper db;
-    
-    public Round(String topic) {
-        this.topic = topic;
-        
-        //determines topic
-        if(topic.equals("alg")) {
-        	db = new AlgDB();
-        }
-        else if(topic.equals("mult")) {
-        	db = new MultDB();
-        }
-        
-        ProblemGenerator pg = new ProblemGenerator(db);
-        pg.randomize();
-        problems = pg.getSet();
-        
-    }
-    
-    public void incrementCurrent() {
-        current++;
-    }
+	private ArrayList<Problem> problems;
+	private ProblemGenerator pg;
+	private int current;
 
-    public int getCurrent() {
-        return current;
-    }
-    
-    public ArrayList<Problem> getProblems() {
-        return problems;
-    }
+	public Round() {
+		current = 0;
+	}
+
+	public void setProbGen(ProblemGenerator pg) {
+		this.pg = pg;
+		this.pg.randomize();
+		problems = pg.getSet();
+	}
+
+	public Problem getNext() {
+		if(current < problems.size())
+		{
+			Problem p = problems.get(current);
+			current++;
+			return p;
+		}
+		return null;
+	}
 }

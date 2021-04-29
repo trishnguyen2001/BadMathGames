@@ -1,16 +1,15 @@
 package main.view;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
 
-import javax.swing.JFrame;
-
+import main.controller.Message;
 import main.model.Score;
 
 public class ScoreboardView extends View{
     Score theScore;
-    //DataBaseHelper dbh;
-
-    public ScoreboardView showScoreBoard(ArrayList<Score> s) {
-        return null;
+    
+    public ScoreboardView(BlockingQueue<Message> q) {
+        
     }
 }

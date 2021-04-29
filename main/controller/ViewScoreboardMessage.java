@@ -1,5 +1,5 @@
 package main.controller;
 
-public class ViewScoreboardMessage {
+public class ViewScoreboardMessage implements Message {
 
 }

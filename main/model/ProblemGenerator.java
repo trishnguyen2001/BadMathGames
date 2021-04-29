@@ -14,10 +14,10 @@ public class ProblemGenerator {
     }
 
     public void randomize(){
-        int max = 10; //10 problems in set
+        int max = 50; //50 problems in set
         int min = -1;
         
-        for(int i= 0; i <= 20; i++) {
+        while(set.size() < 10) {
         	int id = (int) (Math.random() * (max - min) + min);
         	if(!alreadyPicked.contains(id)) {
         		try {

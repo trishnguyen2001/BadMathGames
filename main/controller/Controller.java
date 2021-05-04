@@ -8,6 +8,8 @@ import main.model.Round;
 import main.model.Score;
 import main.view.*;
 
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 public class Controller {
@@ -22,15 +24,17 @@ public class Controller {
 	MultDB mdb;
 	int correctAnswers;
 	String topic;
+	ArrayList<Score> algScores, multScores;
 
-	public Controller(BlockingQueue<Message> queue, HomeView home, AlgDB adb, MultDB mdb) {
+	public Controller(BlockingQueue<Message> queue, HomeView home, AlgDB adb, MultDB mdb, ArrayList<Score> algScores, ArrayList<Score> multScores) {
 		this.queue = queue;
 		this.currentV = home;
 		this.adb = adb;
 		this.mdb = mdb;
-		
+		this.algScores = algScores;
+		this.multScores = multScores;
+
 		this.homeV = home;
-		scoreboardV = new ScoreboardView(queue);
 		correctAnswers = 0;
 	}
 
@@ -66,10 +70,10 @@ public class Controller {
 				Problem first = gameModel.getNext();
 				//view = HomeView --> change to RoundView
 				roundV = new RoundView(queue, first);	//creates round view displaying first problem
+				homeV.setVisible(false);
+				roundV.setVisible(true);
 				currentV = roundV;
-				currentV.changeTo(roundV);
-				
-				
+
 				System.out.println("CONTROLLER: topic selected! --> " + topic);
 			}
 
@@ -80,43 +84,84 @@ public class Controller {
 				double answer = submitAnswerMessage.getCurrent().getAnswer();
 				if(input == answer) {
 					correctAnswers++;
-					
 				}
 				Problem next = gameModel.getNext();
+				//System.out.println("CONTROLLER: next problem = " + next.getProblem());
 				if(next != null) {
 					roundV.updateRoundView(next);
 				}
 				else {
-					//temporarily change to home
-					//eventually chagne to display score
 					Score s = new Score(topic, correctAnswers);
 					endV = new EndView(queue, s);
-					currentV.changeTo(endV);
+					System.out.println("CONTROLLER: SubmitAnswerBtn: end of round --> correctAnswers = " + correctAnswers);
+					roundV.setVisible(false);
+					endV.setVisible(true);
 					currentV = endV;
+					System.out.println("CONTROLLER: SubmitAnswerBtn pressed!");
+
+					System.out.println("CONTROLLER: SubmitAnswerBtn: problem = " + submitAnswerMessage.getCurrent());
+					System.out.println("CONTROLLER: SubmitAnswerBtn: answer = " + answer);
+					System.out.println("CONTROLLER: SubmitAnswerBtn: input = " + input);
 				}
-				
-				
-				
-				System.out.println("CONTROLLER: SubmitAnswerBtn pressed!");
 			}
 
-			//qualifying score --> write to .csv file
+
+
+
+			//new score --> store
 			if (m.getClass() == NewScoreboardEntryMessage.class) {
 				NewScoreboardEntryMessage newScoreboardEntryMessage = (NewScoreboardEntryMessage) m;
-				
-				
-				
+				Score s = newScoreboardEntryMessage.getScore();
+				s.setPlayer(newScoreboardEntryMessage.getName());
+				String topic = s.getTopic();
+
+				String filename;
+				if(topic.equalsIgnoreCase("alg")) {
+					filename = "src/main/AlgScoreboard.csv";
+				}
+				else {
+					filename = "src/main/MultScoreboard.csv";
+				}
+
+				try {
+
+					FileWriter writer = new FileWriter(filename);
+					String entry = s.toString();
+					writer.write(entry);
+					writer.close();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				currentV.changeTo(homeV, currentV);
+				currentV.setVisible(false);
+				homeV.setVisible(true);
+				currentV = homeV;
 				System.out.println("CONTROLLER: NewScoreboardEntry!");
 			}
 
 			//View scoreboard button pressed
 			if (m.getClass() == ViewScoreboardMessage.class) {
 				ViewScoreboardMessage viewScoreboardMessage = (ViewScoreboardMessage) m;
-				currentV.changeTo(scoreboardV);
+
+				scoreboardV = new ScoreboardView(queue, algScores, multScores);
+				homeV.setVisible(false);
+				scoreboardV.setVisible(true);
 				currentV = scoreboardV;
-				
-				
+
+
 				System.out.println("CONTROLLER: ViewScoreboardBtn pressed!");
+			}
+
+			//exit to home btn pressed
+			if(m.getClass() == ExitToHomeMessage.class) {
+				ExitToHomeMessage exitHomeMessage = (ExitToHomeMessage) m;
+
+				scoreboardV.setVisible(false);
+				homeV.setVisible(true);
+				currentV = homeV;
+				System.out.println("CONTROLLER: ExitToHomeBtn pressed!");
 			}
 		}
 	}

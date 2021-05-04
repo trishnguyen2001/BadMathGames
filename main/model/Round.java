@@ -8,6 +8,7 @@ public class Round {
 	private int current;
 
 	public Round() {
+		System.out.println("ROUND: round created");
 		current = 0;
 	}
 
@@ -20,7 +21,13 @@ public class Round {
 	public Problem getNext() {
 		if(current < problems.size())
 		{
+			
 			Problem p = problems.get(current);
+			
+			
+			System.out.println("ROUND: current problem = " + p.getProblem());
+			
+			
 			current++;
 			return p;
 		}

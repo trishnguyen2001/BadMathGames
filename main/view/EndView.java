@@ -13,34 +13,41 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class EndView extends View {
     BlockingQueue<Message> queue;
-
-    JButton newScoreboardEntryBtn, exitToHomeMessageButton;
+    
+    JFrame endView;
+    JButton newScoreboardEntryBtn;
     JTextField nameField;
-
-    JLabel scoreLabel;
-    JLabel nameLabel;
-
+    JPanel panel;
+    JLabel scoreLabel, nameLabel, scoreboard;
     Score theScore;
-
-    JLabel scoreboard;
 
 
     public EndView(BlockingQueue<Message> queue, Score score) {
+    	System.out.println("ENDVIEW: new endview created");
+    	
+    	
         this.queue = queue;
         theScore = score;
-
-        this.nameField = new JTextField(10);
+        Font bold = new Font("bolded", Font.BOLD, 30);
         
-        this.scoreLabel = new JLabel("Your score! " + theScore.getCorrect());
-        this.nameLabel = new JLabel("Enter your name! ");
-
-        // this.scoreboard = new JLabel(theScore); <- however score is displayed
+        endView = new JFrame();
+        endView.setLayout(new FlowLayout());
+        endView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        //return to home Btn
-        this.newScoreboardEntryBtn = new JButton("Submit Name");
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
+        scoreLabel = new JLabel("YOUR SCORE: " + theScore.getCorrect());
+        scoreLabel.setFont(bold);
+        
+        nameLabel = new JLabel("PLEASE ENTER YOUR NAME: ");
+        nameField = new JTextField(10);
+        
+        //ScoreboardEntryBtn
+        newScoreboardEntryBtn = new JButton("SUBMIT");
         newScoreboardEntryBtn.addActionListener(e -> {
             String name = nameField.getText();
-
+            
             try {
                 Message msg = new NewScoreboardEntryMessage(name, theScore);
                 queue.put(msg);
@@ -49,22 +56,28 @@ public class EndView extends View {
                 // do nothing
             }
         });
-        newScoreboardEntryBtn.setVisible(false);
        
-        //this.add(scoreboard);
-        this.add(scoreLabel);
-        this.add(nameLabel);
-        this.add(nameField);
-
-
-        this.add(newScoreboardEntryBtn);
-        //this.add(exitToHomeMessageButton);
-
-
-        this.setSize(1000, 1000);
-        this.setLayout(new FlowLayout());
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        Dimension minSize = new Dimension(5, 50);
+		Dimension prefSize = new Dimension(5, 50);
+		Dimension maxSize = new Dimension(Short.MAX_VALUE, 50);
+		Box.Filler box = new Box.Filler(minSize, prefSize, maxSize);
+        
+		//pack frame
+		panel.add(box);
+        panel.add(scoreLabel);
+        panel.add(box);
+        panel.add(box);
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(box);
+        panel.add(newScoreboardEntryBtn);
+        endView.add(panel);
+        endView.pack();
+        endView.setSize(800, 500);
+        endView.setVisible(true);
+        
+        
     }
 
     //not sure if we need
@@ -73,6 +86,7 @@ public class EndView extends View {
         // this.theScore.updateHeight(red, green, blue); <- however it updates the score display
         scoreboard.repaint();
     }
+    
     
     public static void main(String args[]) {
     	BlockingQueue<Message> q = new LinkedBlockingQueue<>();

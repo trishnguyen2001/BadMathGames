@@ -66,6 +66,7 @@ public class HomeView extends View{
 
 		home = new JFrame();
 		home.setLayout(new GridLayout(0, 3, 5, 5));
+		home.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		home.setSize(1000, 1000);
 		
 		Dimension minSize = new Dimension(5, 50);
@@ -90,7 +91,6 @@ public class HomeView extends View{
 		home.add(new Box.Filler(minSize, prefSize, maxSize));
 		
 		home.pack();
-		home.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		home.setSize(800, 500);
 		home.setVisible(true);
 

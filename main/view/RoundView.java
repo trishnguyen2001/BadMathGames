@@ -25,8 +25,12 @@ public class RoundView extends View{
 	private JLabel problemText, directions;
 	private JPanel problemPanel;
 	private Box.Filler box;
+	private double givenAnswer;
 
 	public RoundView(BlockingQueue<Message> q, Problem p) {
+		System.out.println("ROUNDVIEW: new roundview created");
+		
+		
 		//initialize elements
 		this.frame = new JFrame();
 		this.queue = q;
@@ -44,7 +48,7 @@ public class RoundView extends View{
 		submitBtn = new JButton("SUBMIT");
 		submitBtn.setFont(font2);
 		
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		problemPanel = new JPanel();
 		
 
@@ -56,8 +60,8 @@ public class RoundView extends View{
 		//SUBMIT BUTTON ACTION LISTENER
 		submitBtn.addActionListener(e -> {
 			try {
-				double givenAnswer = Double.parseDouble(answerInput.getText().trim());
-				Message submitMessage = new SubmitAnswerMessage(givenAnswer, p);
+				givenAnswer = Double.parseDouble(answerInput.getText().trim());
+				Message submitMessage = new SubmitAnswerMessage(givenAnswer, this.p);
 				queue.put(submitMessage);
 				System.out.println("NEW ANSWER SUBMITTED: " + givenAnswer);
 			} catch (InterruptedException exception) {
@@ -87,6 +91,7 @@ public class RoundView extends View{
 
 	public void updateRoundView(Problem p) {
 		this.setVisible(false);
+		this.p = p;
 		problemText.setText(p.getProblem());
 		answerInput.setText("");
 		

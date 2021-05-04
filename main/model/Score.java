@@ -2,12 +2,12 @@ package main.model;
 
 public class Score implements Comparable<Score> {
 	String player;		//player's name
-	String subject;
+	String topic;
 	int correct;
 
-	public Score(String subject, int correct) {
+	public Score(String topic, int correct) {
 		this.correct = correct;
-		this.subject = subject;
+		this.topic = topic;
 	}
 	
 	public void setPlayer(String player) {
@@ -25,10 +25,18 @@ public class Score implements Comparable<Score> {
 	}
 
 	public String toString() {
-		return player + "," + subject + "," + correct;
+		return player + "," + correct;
 	}
 	
 	public int getCorrect() {
 		return correct;
+	}
+	
+	public String getPlayer() {
+		return player;
+	}
+	
+	public String getTopic() {
+		return topic;
 	}
 }

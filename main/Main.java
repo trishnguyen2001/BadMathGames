@@ -10,6 +10,7 @@ import main.model.MultDB;
 import main.model.Problem;
 import main.model.ProblemGenerator;
 import main.model.Round;
+import main.model.Score;
 import main.view.HomeView;
 import main.view.RoundView;
 import main.view.ScoreboardView;
@@ -43,7 +44,6 @@ public class Main {
 			e1.printStackTrace();
 		}
 
-
 		MultDB mdb = new MultDB();
 		File mult = new File("src/main/MultTables.csv");
 		try {
@@ -63,85 +63,57 @@ public class Main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		
+		//read scores into arraylists
+		ArrayList<Score> algScores = new ArrayList<>();
+		File algScoreFile = new File("src/main/AlgScoreboard.csv");
+		try {
+			in = new Scanner(algScoreFile);
+			in.nextLine(); 		//gets rid of first line
+			while(in.hasNextLine()) {
+				String current = in.nextLine();
+				String[] items = current.split(",");
+				String player = items[0];
+				String correctString = items[1];
+				int correct = Integer.parseInt(correctString);
+				Score s = new Score("alg", correct);
+				s.setPlayer(player);
+				algScores.add(s);
+			} 
+			in.close();
+		}catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		ArrayList<Score> multScores = new ArrayList<>();
+		File multScoreFile = new File("src/main/MultScoreboard.csv");
+		try {
+			in = new Scanner(multScoreFile);
+			in.nextLine(); 		//gets rid of first line
+			while(in.hasNextLine()) {
+				String current = in.nextLine();
+				String[] items = current.split(",");
+				String player = items[0];
+				String correctString = items[1];
+				int correct = Integer.parseInt(correctString);
+				Score s = new Score("alg", correct);
+				s.setPlayer(player);
+				algScores.add(s);
+			} 
+			in.close();
+		}catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		//initialize MVC
-		//set up message q
 		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
 		Round r = new Round();
 		HomeView startV = new HomeView(q);
-		Controller c = new Controller(q, startV, adb, mdb);
+		Controller c = new Controller(q, startV, adb, mdb, algScores, multScores);
 		c.mainLoop();
 		
-		///////////////////////////////////////////TESTER////////////////////////////////////////////////
-		//////////////////////////////////////PROBLEM PARSE TESTER//////////////////////////////////////////
-		//		System.out.println("-------------------AlgDB Test Starting------------------------");
-		//		int counter = 0;
-		//		while(counter < adb.size()) {
-		//			try {
-		//				System.out.println(adb.getProblem(counter).toString());
-		//
-		//				counter++;
-		//			} catch (Exception e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//		}
-		//		System.out.println("-------------------MultDB Test Starting------------------------");
-		//		counter = 0;
-		//		while(counter < mdb.size()) {
-		//			try {
-		//				System.out.println(mdb.getProblem(counter).toString());
-		//
-		//				counter++;
-		//			} catch (Exception e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//////////////////////////////////MODEL TESTER//////////////////////////////////////////
-		//		ProblemGenerator pg = new ProblemGenerator(adb);
-		//		pg.randomize();
-		//		ArrayList<Problem> set = pg.getSet();
-		//		System.out.println("//////////////////Test PG: alg/////////////////////////////");
-		//		for(Problem p: set) {
-		//			System.out.println(p.toString());
-		//		}
-
-		//		Problem p = new Problem("1 + 1 = x", 2.0);
-		//		double testInputCorrect = 2.0;
-		//		double testInputWrong = 14.0;
-		//		if(p.getAnswer() == testInputCorrect) {
-		//			System.out.println("correct");
-		//		}
-		//		else {
-		//			System.out.println("model wrong");
-		//		}
-		//		if(p.getAnswer() != testInputWrong) {
-		//			System.out.println("wrong");
-		//		}
-		//		else {
-		//			System.out.println("model wrong");
-		//		}
-		//		
-
-
-
-		//		ProblemGenerator pg1 = new ProblemGenerator(mdb);
-		//		pg1.randomize();
-		//		ArrayList<Problem> set1 = pg1.getSet();
-		//		System.out.println("/////////////////////////Test PG: mult//////////////////////");
-		//		for(Problem p: set1) {
-		//			System.out.println(p.toString());
-		//		}
-
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
+		
 	}
 }

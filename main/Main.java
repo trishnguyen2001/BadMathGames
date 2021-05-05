@@ -11,6 +11,7 @@ import main.model.Problem;
 import main.model.ProblemGenerator;
 import main.model.Round;
 import main.model.Score;
+import main.model.ScoreboardHelper;
 import main.view.HomeView;
 import main.view.RoundView;
 import main.view.ScoreboardView;
@@ -64,52 +65,14 @@ public class Main {
 			e1.printStackTrace();
 		}
 		
-		//read scores into arraylists
-		ArrayList<Score> algScores = new ArrayList<>();
-		File algScoreFile = new File("src/main/AlgScoreboard.csv");
-		try {
-			in = new Scanner(algScoreFile);
-			in.nextLine(); 		//gets rid of first line
-			while(in.hasNextLine()) {
-				String current = in.nextLine();
-				String[] items = current.split(",");
-				String player = items[0];
-				String correctString = items[1];
-				int correct = Integer.parseInt(correctString);
-				Score s = new Score("alg", correct);
-				s.setPlayer(player);
-				algScores.add(s);
-			} 
-			in.close();
-		}catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
-		ArrayList<Score> multScores = new ArrayList<>();
-		File multScoreFile = new File("src/main/MultScoreboard.csv");
-		try {
-			in = new Scanner(multScoreFile);
-			in.nextLine(); 		//gets rid of first line
-			while(in.hasNextLine()) {
-				String current = in.nextLine();
-				String[] items = current.split(",");
-				String player = items[0];
-				String correctString = items[1];
-				int correct = Integer.parseInt(correctString);
-				Score s = new Score("alg", correct);
-				s.setPlayer(player);
-				algScores.add(s);
-			} 
-			in.close();
-		}catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		//initialize MVC
 		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
 		Round r = new Round();
+		ScoreboardHelper sbh = new ScoreboardHelper();
+		ArrayList<Score> algScores = sbh.updateAlgScores();
+		ArrayList<Score> multScores = sbh.updateMultScores();
 		HomeView startV = new HomeView(q);
 		Controller c = new Controller(q, startV, adb, mdb, algScores, multScores);
 		c.mainLoop();

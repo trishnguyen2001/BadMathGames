@@ -196,9 +196,10 @@ public class Controller {
 			 Problem first = gameModel.getNext();
 			 //view = HomeView --> change to RoundView
 			 roundV = new RoundView(queue, first);    //creates round view displaying first problem
-			 homeV.setVisible(false);
-			 roundV.setVisible(true);
-			 currentV = roundV;
+			 // homeV.setVisible(false);
+           		 // roundV.setVisible(true);
+          		 // currentV = roundV;
+           		 homeV.close();
 
 			 System.out.println("CONTROLLER: topic selected! --> " + topic);
 			 return ValveResponse.EXECUTED;

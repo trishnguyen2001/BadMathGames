@@ -100,4 +100,8 @@ public class HomeView extends View{
 		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
 		HomeView test = new HomeView(q);
 	}
+	
+	public void close() {
+        home.dispose();
+    }
 }

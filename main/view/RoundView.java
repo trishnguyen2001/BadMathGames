@@ -2,17 +2,10 @@ package main.view;
 
 import main.controller.Message;
 import main.controller.SubmitAnswerMessage;
-import main.model.MultDB;
 import main.model.Problem;
-import main.model.ProblemGenerator;
-import main.model.Round;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -114,6 +107,10 @@ public class RoundView extends View{
 		frame.setVisible(true);
 	}
 	
+	
+	public void close() {
+        frame.dispose();
+    }
 	
 	public static void main(String args[]) {
 		BlockingQueue<Message> q = new LinkedBlockingQueue<>();

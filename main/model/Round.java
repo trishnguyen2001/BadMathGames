@@ -51,7 +51,6 @@ public class Round {
 
     interface ProblemIterator {
         Problem next();
-
         boolean hasNext();
     }
 }

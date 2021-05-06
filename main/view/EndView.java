@@ -87,6 +87,10 @@ public class EndView extends View {
         scoreboard.repaint();
     }
     
+    public void close() {
+        endView.dispose();
+    }
+    
     
     public static void main(String args[]) {
     	BlockingQueue<Message> q = new LinkedBlockingQueue<>();

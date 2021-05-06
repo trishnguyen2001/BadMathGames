@@ -12,6 +12,7 @@ import javax.swing.*;
 import main.controller.ExitToHomeMessage;
 import main.controller.Message;
 import main.model.Score;
+import main.model.ScoreboardHelper;
 
 public class ScoreboardView extends View{
     JFrame frame;
@@ -45,7 +46,9 @@ public class ScoreboardView extends View{
         algTitle = new JLabel("ALGEBRA SCOREBOARD");
         algTitle.setFont(bold);
         algPanel.add(algTitle);
-        for(Score s: algScores) {
+        ScoreboardHelper sbh = new ScoreboardHelper();
+        ArrayList<Score> top5Alg = sbh.getTop5Scores(algScores);
+        for(Score s: top5Alg) {
         	ScoreLabel entry = new ScoreLabel(s);
         	algPanel.add(entry);
         }
@@ -56,7 +59,8 @@ public class ScoreboardView extends View{
         multTitle = new JLabel("MULTIPLICATION SCOREBOARD");
         multTitle.setFont(bold);
         multPanel.add(multTitle);
-        for(Score s: multScores) {
+        ArrayList<Score> top5Mult = sbh.getTop5Scores(multScores);
+        for(Score s: top5Mult) {
         	ScoreLabel entry = new ScoreLabel(s);
         	multPanel.add(entry);
         }
@@ -69,8 +73,12 @@ public class ScoreboardView extends View{
         frame.add(multPanel);
         frame.add(exitBtn);
         frame.pack();
-        frame.setSize(800, 800);
+        frame.setSize(800, 500);
         frame.setVisible(true);
+    }
+    
+    public void close() {
+        frame.dispose();
     }
     
     public static void main(String args[]) {

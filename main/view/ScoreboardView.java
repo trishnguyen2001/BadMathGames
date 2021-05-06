@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.*;
 
@@ -15,7 +14,8 @@ import main.model.Score;
 import main.model.ScoreboardHelper;
 
 public class ScoreboardView extends View{
-    JFrame frame;
+	private static final long serialVersionUID = 1L;
+	JFrame frame;
     BlockingQueue<Message> q;
     JPanel algPanel, multPanel;
     JLabel algTitle, multTitle;
@@ -79,19 +79,5 @@ public class ScoreboardView extends View{
     
     public void close() {
         frame.dispose();
-    }
-    
-    public static void main(String args[]) {
-    	BlockingQueue<Message> q = new LinkedBlockingQueue<>();
-    	Score s = new Score("alg", 9);
-    	s.setPlayer("tom");
-    	ArrayList<Score> algScores = new ArrayList<>();
-    	ArrayList<Score> multScores = new ArrayList<>();
-    	for(int i = 0; i < 10; i++) {
-    		algScores.add(s);
-    		multScores.add(s);
-    	}
-    	
-    	ScoreboardView test = new ScoreboardView(q, algScores, multScores);
     }
 }

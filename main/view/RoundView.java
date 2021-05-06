@@ -7,9 +7,9 @@ import main.model.Problem;
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class RoundView extends View{
+	private static final long serialVersionUID = 1L;
 	private BlockingQueue<Message> queue;
 	private JFrame frame;
 	private Problem p;
@@ -111,13 +111,5 @@ public class RoundView extends View{
 	public void close() {
         frame.dispose();
     }
-	
-	public static void main(String args[]) {
-		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
-		Problem p = new Problem("1 + 1 = x", 2);
-		RoundView test = new RoundView(q, p);
-		Problem p2 = new Problem("1 + 3 = x", 4);
-		//test.updateRoundView(p);
-	}
 }
 

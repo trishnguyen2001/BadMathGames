@@ -1,25 +1,23 @@
 package main;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
+import java.util.*;
+import java.util.concurrent.*;
 import main.controller.Controller;
 import main.controller.Message;
 import main.model.AlgDB;
 import main.model.MultDB;
 import main.model.Problem;
-import main.model.ProblemGenerator;
-import main.model.Round;
 import main.model.Score;
 import main.model.ScoreboardHelper;
 import main.view.HomeView;
-import main.view.RoundView;
-import main.view.ScoreboardView;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
 
+/**
+ * Main application that runs application
+ * @author Trish Nguyen, Dan Nguyen, Alan Nguyen
+ *
+ */
 public class Main {
 	public static void main(String args[]) {
 
@@ -66,10 +64,8 @@ public class Main {
 		}
 		
 		
-		
 		//initialize MVC
 		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
-		Round r = new Round();
 		ScoreboardHelper sbh = new ScoreboardHelper();
 		ArrayList<Score> algScores = sbh.updateAlgScores();
 		ArrayList<Score> multScores = sbh.updateMultScores();

@@ -6,28 +6,28 @@ import javax.swing.*;
 import main.controller.Message;
 import main.controller.TopicSelectMessage;
 import main.controller.ViewScoreboardMessage;
-import main.model.Problem;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class HomeView extends View{
+	private static final long serialVersionUID = 1L;
 	private JFrame home;
+	private JPanel topicSelect;
 	private BlockingQueue<Message> q;
 
 	public HomeView(BlockingQueue<Message> q) {
 		System.out.println("HOMEVIEW: new homeview created");
 		
-		
-		
-		
-		
 		this.q = q;
 
+		Font bold = new Font("bolded", Font.BOLD, 30);
+		Font bold2 = new Font("bolded2", Font.BOLD, 20);
+		
 		//ALG BTN
 		JButton algBtn = new JButton("Algebra");
-		algBtn.setBounds(40, 200, 100, 60);
+		algBtn.setSize(200, 20);
+		algBtn.setFont(bold2);
 		algBtn.addActionListener(event -> {
 			Message msg = new TopicSelectMessage("alg");
 			try {
@@ -40,7 +40,8 @@ public class HomeView extends View{
 
 		//MULT BTN 
 		JButton multBtn = new JButton("Multiplication Tables");
-		multBtn.setBounds(40, 100, 100, 30);
+		multBtn.setSize(200, 20);
+		multBtn.setFont(bold2);
 		multBtn.addActionListener(event -> {
 			Message msg = new TopicSelectMessage("mult");
 			try {
@@ -65,40 +66,35 @@ public class HomeView extends View{
 
 
 		home = new JFrame();
-		home.setLayout(new GridLayout(0, 3, 5, 5));
+		home.setLayout(new FlowLayout());
 		home.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		home.setSize(1000, 1000);
+		
+		topicSelect = new JPanel();
+		topicSelect.setLayout(new BoxLayout(topicSelect, BoxLayout.Y_AXIS));
 		
 		Dimension minSize = new Dimension(5, 50);
 		Dimension prefSize = new Dimension(5, 50);
 		Dimension maxSize = new Dimension(Short.MAX_VALUE, 50);
 		
 		JLabel title = new JLabel("BAD MATH GAMES");
-		title.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		JLabel directions = new JLabel("Please pick a topic");
-		directions.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		title.setFont(bold);
 		
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(title);
-		home.add(scoreboardBtn);
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(directions);
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(algBtn);
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(multBtn);
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
-		home.add(new Box.Filler(minSize, prefSize, maxSize));
+		JLabel directions = new JLabel("PICK A TOPIC");
+		directions.setFont(bold2);
 		
+		topicSelect.add(title);
+		topicSelect.add(new Box.Filler(minSize, prefSize, maxSize));
+		topicSelect.add(directions);
+		topicSelect.add(new Box.Filler(minSize, prefSize, maxSize));
+		topicSelect.add(algBtn);
+		topicSelect.add(new Box.Filler(minSize, prefSize, maxSize));
+		topicSelect.add(multBtn);
+		topicSelect.add(new Box.Filler(minSize, prefSize, maxSize));
+		topicSelect.add(scoreboardBtn);
+		home.add(topicSelect);
 		home.pack();
 		home.setSize(800, 500);
 		home.setVisible(true);
-
-	}
-
-	public static void main(String args[]) {
-		BlockingQueue<Message> q = new LinkedBlockingQueue<>();
-		HomeView test = new HomeView(q);
 	}
 	
 	public void close() {

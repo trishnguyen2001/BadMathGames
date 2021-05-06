@@ -7,6 +7,7 @@ import javax.swing.*;
 import main.model.Score;
 
 public class ScoreLabel extends JPanel{
+	private static final long serialVersionUID = 1L;
 	JLabel name, score, placeholder;
 	
 	public ScoreLabel(Score s) {

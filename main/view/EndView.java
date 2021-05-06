@@ -5,14 +5,14 @@ import javax.swing.*;
 import main.controller.Message;
 import main.controller.NewScoreboardEntryMessage;
 import main.model.Score;
-import main.model.Score;
 
 import java.awt.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class EndView extends View {
-    BlockingQueue<Message> queue;
+	private static final long serialVersionUID = 1L;
+
+	BlockingQueue<Message> queue;
     
     JFrame endView;
     JButton newScoreboardEntryBtn;
@@ -89,14 +89,6 @@ public class EndView extends View {
     
     public void close() {
         endView.dispose();
-    }
-    
-    
-    public static void main(String args[]) {
-    	BlockingQueue<Message> q = new LinkedBlockingQueue<>();
-    	Score s = new Score("alg", 9);
-    	s.setPlayer("tom");
-    	EndView test = new EndView(q, s);
     }
     
 }

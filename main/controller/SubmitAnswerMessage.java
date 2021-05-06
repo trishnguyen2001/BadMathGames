@@ -15,7 +15,7 @@ public class SubmitAnswerMessage implements Message{
 		return answer;
 	}
 	
-	public Problem getCurrent() {
+	public Problem getProblem() {
 		return prob;
 	}
 }

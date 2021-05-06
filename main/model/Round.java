@@ -44,7 +44,7 @@ public class Round {
             }
 
             public boolean hasNext() {
-                return index < problems.size();     //might need to be size - 1 idk
+                return index < problems.size();     //might need to be size - 1
             }
         };
     }

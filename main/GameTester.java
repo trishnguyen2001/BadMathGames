@@ -1,14 +1,16 @@
 package main;
 
-import main.model.*;
+import main.model.AlgDB;
+import main.model.Problem;
+import main.model.ProblemGenerator;
+import main.model.Score;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTester {
 
@@ -54,5 +56,14 @@ public class GameTester {
         betterScore.setPlayer("Better");
         assertTrue(betterScore.compareTo(oldScore) == 5, "Score difference should be 5");
 
+    }
+
+    @Test
+    public void testProblem() {
+        Problem prob = new Problem("0 * 0", 0);
+        Problem prob2 = new Problem("1 * 1", 1);
+        assertNotEquals(prob, prob2, "Problems should not be equal");
+        assertTrue(prob.getProblem().equalsIgnoreCase("0 * 0"), "Problem should be 0 * 0");
+        assertEquals(prob.getAnswer(), 0, "Answer should be zero");
     }
 }

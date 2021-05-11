@@ -2,7 +2,7 @@ package main.controller;
 
 public class TopicSelectMessage implements Message{
 	private String topic;
-	
+
 	/**
      	* ctor
      	* @param topic given topic as a string
@@ -10,7 +10,7 @@ public class TopicSelectMessage implements Message{
 	public TopicSelectMessage(String topic){
 		this.topic = topic;
 	}
-	
+
 	/**
      	* @return topic as a string
      	*/

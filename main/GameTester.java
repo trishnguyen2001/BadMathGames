@@ -1,27 +1,24 @@
 package main;
 
-import main.model.AlgDB;
-import main.model.Problem;
-import main.model.ProblemGenerator;
-import main.model.Score;
+import main.model.*;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTester {
-
-
-    @Test
-    public void testProblemGenerator() {
-        AlgDB adb = new AlgDB();
-        File alg1 = new File("src/main/Alg1.csv");
+	private AlgDB adb;
+	
+	/**
+	 * Initializes databases that will be used in tester methods
+	 */
+	public GameTester() {
+		adb = new AlgDB();
+        File algFile = new File("src/main/Alg1.csv");
         Scanner in;
         try {
-            in = new Scanner(alg1);
+            in = new Scanner(algFile);
             in.nextLine();        //gets rid of first line
             while (in.hasNextLine()) {
                 String current = in.nextLine();
@@ -37,6 +34,10 @@ public class GameTester {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+	}
+	
+    @Test
+    public void testProblemGenerator() {
         ProblemGenerator firstSet = new ProblemGenerator(adb);
         ProblemGenerator secondSet = new ProblemGenerator(adb);
         firstSet.randomize();
@@ -44,7 +45,7 @@ public class GameTester {
         assertTrue(firstSet != secondSet, "Sets should not be the same");
         assertTrue(firstSet.getSet().size() == 10, "Set returned should be size 10");
     }
-
+    
     @Test
     public void testScore() {
         Score oldScore = new Score("alg", 5);
@@ -55,7 +56,9 @@ public class GameTester {
         Score betterScore = new Score("alg", 10);
         betterScore.setPlayer("Better");
         assertTrue(betterScore.compareTo(oldScore) == 5, "Score difference should be 5");
-
+        Score oldScoreCopy = new Score("alg", 5);
+        oldScoreCopy.setPlayer("Tester");
+        assertTrue(oldScore.equals(oldScoreCopy), "Scores should be equal");
     }
 
     @Test
@@ -65,5 +68,34 @@ public class GameTester {
         assertNotEquals(prob, prob2, "Problems should not be equal");
         assertTrue(prob.getProblem().equalsIgnoreCase("0 * 0"), "Problem should be 0 * 0");
         assertEquals(prob.getAnswer(), 0, "Answer should be zero");
+    }
+    
+    @Test
+    public void testMultDB() {
+    	MultDB mdb = new MultDB();
+    	mdb.addData(new Problem("2x = 4", 2.0));
+    	mdb.addData(new Problem("3x = 9", 3.0));
+    	mdb.addData(new Problem("5x = 5", 1.0));
+    	mdb.addData(new Problem("2x = 18", 9.0));
+    	mdb.addData(new Problem("2x = 44", 22.0));
+    	mdb.addData(new Problem("2x = 40", 20.0));
+    	
+    	assertEquals(mdb.size(), 6, "mdb should have max index = 5");
+    	try {
+			assertEquals(mdb.search(0), new Data(0, new Problem("2x = 4", 2.0)), "Data returned should be equal");
+			assertEquals(mdb.getProblem(1), new Problem("3x = 9", 3.0), "Problem returned should be equal");
+			mdb.deleteData(5);
+			assertEquals(mdb.size(), 5, "mdb should have max index = 4");
+    	} catch (Exception e) {
+			assertEquals(1, 0, "testMuldDB: test failed");
+		}
+    }
+    
+    @Test
+    public void testData() {
+    	Problem testP1 = new Problem("2x = 4", 2.0);
+    	Data testD1 = new Data(0, testP1);
+    	assertTrue(testD1.getProblem().equals(testP1), "Should be equal");
+    	assertEquals(testD1.getId(), 0, "Id should be 0");
     }
 }

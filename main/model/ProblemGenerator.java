@@ -30,10 +30,11 @@ public class ProblemGenerator {
         //chooses problem set of 10
         while(set.size() < 10) {
         	int id = (int) (Math.random() * (max - min) + min);
+        	System.out.println("id = " + id);
         	
         	//checks if problem has been picked before 
         	//already picked --> don't add and pick another
-        	if(!alreadyPicked.contains(id)) {
+        	if(!alreadyPicked.contains(id) && db.search(id) != null) {
         		try {
 					set.add(db.getProblem(id));
 				} catch (Exception e) {

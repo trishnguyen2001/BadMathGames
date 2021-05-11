@@ -18,6 +18,8 @@ public class AlgDB implements DatabaseHelper{
 		db = new ArrayList<>();
 	}
 
+
+
 	@Override
 	/**
 	 * adds data into data structure
@@ -31,37 +33,36 @@ public class AlgDB implements DatabaseHelper{
 	/**
 	 * searches database w/ given id
 	 */
-	public Data search(int id) throws Exception{
+	public Data search(int id){
 		for(Data d: db) {
-			if(id == d.id) {
+			if(id == d.getId()) {
 				return d;
 			}
 		}
-		throw new Exception("problem not found");
+		return null;
 	}
 
 	@Override
 	/**
 	 * deletes data from data structure
 	 */
-	public void deleteData(int id) throws Exception{
+	public void deleteData(int id){
 		Data result = search(id);
 		if(result.id >= 0) {
 			db.remove(id);
 		}
-		throw new Exception("problem not found");
 	}
 
 	@Override
 	/**
 	 * gets problem from data of given id
 	 */
-	public Problem getProblem(int id) throws Exception {
+	public Problem getProblem(int id){
 		Data result = search(id);
 		if(result.id >= 0) {
 			return result.p;
 		}
-		throw new Exception("problem not found");
+		return null;
 	}
 
 	@Override
@@ -70,5 +71,5 @@ public class AlgDB implements DatabaseHelper{
 	 */
 	public int size() {
 		return db.size();
-	}	
+	}
 }

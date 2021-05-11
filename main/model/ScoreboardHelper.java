@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * Data structures to hold scores
+ * @author Trish Nguyen
+ *
+ */
 public class ScoreboardHelper {
 	ArrayList<Score> algScores, multScores;		//data structure that keeps data from .csv files
 

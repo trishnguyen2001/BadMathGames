@@ -1,5 +1,10 @@
 package main.model;
 
+/**
+ * object that holds player's name, score, and topic
+ * @author Trish Nguyen, Dan Nguyen, Alan Nguyen
+ *
+ */
 public class Score implements Comparable<Score> {
 	String player;		//player's name
 	String topic;		//round's topic
@@ -26,6 +31,15 @@ public class Score implements Comparable<Score> {
 			return this.player.compareTo(o.player);
 		}
 		return this.correct - o.correct;
+	}
+	
+	public boolean equals(Object o) {
+		if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) {
+        	return false;
+        }
+        Score that = (Score) o;
+        return this.compareTo(that) == 0;
 	}
 
 	/**

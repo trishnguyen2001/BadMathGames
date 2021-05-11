@@ -5,7 +5,7 @@ import main.model.Score;
 public class NewScoreboardEntryMessage implements Message{
 	private String name;
 	private Score s;
-	
+
 	/**
 	* ctor
      	* @param name given name as a String
@@ -15,14 +15,14 @@ public class NewScoreboardEntryMessage implements Message{
 		this.name = name;
 		this.s = s;
 	}
-	
+
 	/**
      	* @return score as a score obj
     	*/
 	public Score getScore() {
 		return s;
 	}
-	
+
 	/**
      	* @return name as a string
      	*/

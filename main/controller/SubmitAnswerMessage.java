@@ -5,7 +5,7 @@ import main.model.Problem;
 public class SubmitAnswerMessage implements Message{
 	private double answer;
 	private Problem prob;
-	
+
 	/**
      	* ctor
      	* @param answer given answer as a double
@@ -15,14 +15,14 @@ public class SubmitAnswerMessage implements Message{
 		this.answer = answer;
 		this.prob = prob;
 	}
-	
+
 	/**
      	* @return answer as a double
      	*/
 	public double submitAnswer() {
 		return answer;
 	}
-	
+
 	/**
      	* @return problem as a problem object
      	*/

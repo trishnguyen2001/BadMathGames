@@ -1,11 +1,12 @@
 package main.view;
 
+import java.awt.*;
+import javax.swing.*;
+
 import main.controller.Message;
 import main.controller.TopicSelectMessage;
 import main.controller.ViewScoreboardMessage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.concurrent.BlockingQueue;
 
 
@@ -69,6 +70,9 @@ public class HomeView extends View {
                 e.printStackTrace();
             }
         });
+        
+        //LOGO
+        JLabel logo = new JLabel(new ImageIcon("src/main/toast.png"));
 
         //PACK FRAME
         home = new JFrame();
@@ -99,6 +103,8 @@ public class HomeView extends View {
         topicSelect.add(new Box.Filler(minSize, prefSize, maxSize));
         topicSelect.add(scoreboardBtn);
         home.add(topicSelect);
+        home.add(logo);
+        logo.setSize(100,100);
         home.pack();
         home.setSize(800, 500);
         home.setVisible(true);
